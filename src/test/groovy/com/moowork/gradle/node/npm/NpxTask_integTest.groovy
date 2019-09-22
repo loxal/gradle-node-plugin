@@ -17,14 +17,7 @@ class NpxTask_integTest
                 id 'com.github.node-gradle.node'
             }
 
-            node {
-                version = "10.14.0"
-                npmVersion = "6.4.1"
-                download = true
-                workDir = file('build/node')
-            }
-            
-            task camelCase(type: NpxTask) {
+             task camelCase(type: NpxTask) {
                 command = 'chcase-cli'
                 args = ['--help']
             }
@@ -34,13 +27,13 @@ class NpxTask_integTest
         def result = build(":camelCase")
 
         then:
-        result.task(":nodeSetup").outcome == TaskOutcome.SUCCESS
-        result.task(":npmSetup").outcome == TaskOutcome.SUCCESS
+        result.task(":nodeSetup").outcome == TaskOutcome.SKIPPED
+        result.task(":npmSetup").outcome == TaskOutcome.SKIPPED
         result.task(":camelCase").outcome == TaskOutcome.SUCCESS
         result.output.contains("--case, -C  Which case to convert to")
     }
 
-    def 'execute npx command with a package.json file and check inputs up-to-date detection'() {
+    def 'download node, execute npx command with a package.json file and check inputs up-to-date detection'() {
         given:
         copyResources('fixtures/npx/', '')
         copyResources('fixtures/javascript-project/', '')
@@ -87,8 +80,8 @@ class NpxTask_integTest
         def result1 = build(":env")
 
         then:
-        result1.task(":nodeSetup").outcome == TaskOutcome.SUCCESS
-        result1.task(":npmSetup").outcome == TaskOutcome.SUCCESS
+        result1.task(":nodeSetup").outcome == TaskOutcome.SKIPPED
+        result1.task(":npmSetup").outcome == TaskOutcome.SKIPPED
         result1.task(":npmInstall").outcome == TaskOutcome.SUCCESS
         result1.task(":env").outcome == TaskOutcome.SUCCESS
         result1.output.contains("PATH=")
@@ -97,8 +90,8 @@ class NpxTask_integTest
         def result2 = build(":env", "-DcustomEnv=true")
 
         then:
-        result2.task(":nodeSetup").outcome == TaskOutcome.UP_TO_DATE
-        result2.task(":npmSetup").outcome == TaskOutcome.UP_TO_DATE
+        result2.task(":nodeSetup").outcome == TaskOutcome.SKIPPED
+        result2.task(":npmSetup").outcome == TaskOutcome.SKIPPED
         result2.task(":npmInstall").outcome == TaskOutcome.SUCCESS
         result2.task(":env").outcome == TaskOutcome.SUCCESS
         result2.output.contains("CUSTOM=custom value")
@@ -108,8 +101,8 @@ class NpxTask_integTest
         def result3 = build(":env", "-DcustomEnv=true")
 
         then:
-        result3.task(":nodeSetup").outcome == TaskOutcome.UP_TO_DATE
-        result3.task(":npmSetup").outcome == TaskOutcome.UP_TO_DATE
+        result3.task(":nodeSetup").outcome == TaskOutcome.SKIPPED
+        result3.task(":npmSetup").outcome == TaskOutcome.SKIPPED
         result3.task(":npmInstall").outcome == TaskOutcome.UP_TO_DATE
         result3.task(":env").outcome == TaskOutcome.UP_TO_DATE
 
@@ -117,8 +110,8 @@ class NpxTask_integTest
         def result4 = build(":env", "-DignoreExitValue=true", "-DnotExistingCommand=true")
 
         then:
-        result4.task(":nodeSetup").outcome == TaskOutcome.UP_TO_DATE
-        result4.task(":npmSetup").outcome == TaskOutcome.UP_TO_DATE
+        result4.task(":nodeSetup").outcome == TaskOutcome.SKIPPED
+        result4.task(":npmSetup").outcome == TaskOutcome.SKIPPED
         result4.task(":npmInstall").outcome == TaskOutcome.UP_TO_DATE
         result4.task(":env").outcome == TaskOutcome.SUCCESS
         result4.output.contains("E404")
@@ -127,8 +120,8 @@ class NpxTask_integTest
         def result5 = buildAndFail(":env", "-DnotExistingCommand=true")
 
         then:
-        result5.task(":nodeSetup").outcome == TaskOutcome.UP_TO_DATE
-        result5.task(":npmSetup").outcome == TaskOutcome.UP_TO_DATE
+        result5.task(":nodeSetup").outcome == TaskOutcome.SKIPPED
+        result5.task(":npmSetup").outcome == TaskOutcome.SKIPPED
         result5.task(":npmInstall").outcome == TaskOutcome.UP_TO_DATE
         result5.task(":env").outcome == TaskOutcome.FAILED
         result5.output.contains("E404")
@@ -137,8 +130,8 @@ class NpxTask_integTest
         def result6 = build(":pwd")
 
         then:
-        result6.task(":nodeSetup").outcome == TaskOutcome.UP_TO_DATE
-        result6.task(":npmSetup").outcome == TaskOutcome.UP_TO_DATE
+        result6.task(":nodeSetup").outcome == TaskOutcome.SKIPPED
+        result6.task(":npmSetup").outcome == TaskOutcome.SKIPPED
         result6.task(":npmInstall").outcome == TaskOutcome.UP_TO_DATE
         result6.task(":pwd").outcome == TaskOutcome.SUCCESS
         result6.output.contains("Working directory is '${projectDir}'")
@@ -147,8 +140,8 @@ class NpxTask_integTest
         def result7 = build(":pwd", "-DcustomWorkingDir=true")
 
         then:
-        result7.task(":nodeSetup").outcome == TaskOutcome.UP_TO_DATE
-        result7.task(":npmSetup").outcome == TaskOutcome.UP_TO_DATE
+        result7.task(":nodeSetup").outcome == TaskOutcome.SKIPPED
+        result7.task(":npmSetup").outcome == TaskOutcome.SKIPPED
         result7.task(":npmInstall").outcome == TaskOutcome.UP_TO_DATE
         result7.task(":pwd").outcome == TaskOutcome.SUCCESS
         def expectedWorkingDirectory = "${projectDir}${File.separator}build${File.separator}customWorkingDirectory"

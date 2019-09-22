@@ -2,13 +2,6 @@ plugins {
     id "com.github.node-gradle.node"
 }
 
-node {
-    version = "10.14.0"
-    npmVersion = "6.4.1"
-    download = true
-    workDir = file("build/node")
-}
-
 task env(type: YarnTask) {
     dependsOn yarn
     yarnCommand = ["run", "printenv"]
