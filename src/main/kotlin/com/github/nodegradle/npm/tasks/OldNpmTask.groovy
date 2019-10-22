@@ -1,15 +1,13 @@
-package com.moowork.gradle.node.npm
+package com.github.nodegradle.npm.tasks
 
 import com.moowork.gradle.node.NodePlugin
+import com.moowork.gradle.node.npm.NpmExecRunner
+import com.moowork.gradle.node.npm.NpmSetupTask
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.Nested
-import org.gradle.api.tasks.Optional
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.*
 import org.gradle.process.ExecResult
 
-class NpmTask
+class OldNpmTask
     extends DefaultTask
 {
     protected NpmExecRunner runner
@@ -20,7 +18,7 @@ class NpmTask
 
     public String[] npmCommand
 
-    NpmTask()
+    OldNpmTask()
     {
         this.group = NodePlugin.NODE_GROUP
         this.runner = new NpmExecRunner( this.project )

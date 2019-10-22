@@ -5,35 +5,21 @@ import org.gradle.api.Project
 
 class NodeExtension
 {
-    final static String NAME = 'node'
-
-    File workDir
-
-    File npmWorkDir
-
-    File yarnWorkDir
-
-    File nodeModulesDir
-
-    String version = '10.14.0'
-
-    String npmVersion = ''
-
-    String yarnVersion = ''
-
-    String distBaseUrl = 'https://nodejs.org/dist'
-
-    String npmCommand = 'npm'
-
-    String npxCommand = 'npx'
-
-    String npmInstallCommand = 'install'
-
-    String yarnCommand = 'yarn'
-
-    boolean download = false
-
-    Variant variant
+    public final static String NAME = 'node'
+    public File workDir
+    public File npmWorkDir
+    public File yarnWorkDir
+    public File nodeModulesDir
+    public String version = '10.14.0'
+    public String npmVersion = ''
+    public String yarnVersion = ''
+    public String distBaseUrl = 'https://nodejs.org/dist'
+    public String npmCommand = 'npm'
+    public String npxCommand = 'npx'
+    public String npmInstallCommand = 'install'
+    public String yarnCommand = 'yarn'
+    public boolean download = false
+    public Variant variant
 
     NodeExtension( final Project project )
     {

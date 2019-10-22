@@ -18,7 +18,7 @@ class YarnTask
 
     private ExecResult result
 
-    private String[] yarnCommand
+    public String[] yarnCommand
 
     public YarnTask()
     {
