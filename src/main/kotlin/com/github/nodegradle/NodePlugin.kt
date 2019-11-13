@@ -2,9 +2,9 @@ package com.github.nodegradle
 
 import com.github.nodegradle.node.tasks.NodeTask
 import com.github.nodegradle.node.tasks.SetupTask
+import com.github.nodegradle.npm.NpmSetupTask
 import com.moowork.gradle.node.NodeExtension
 import com.moowork.gradle.node.npm.NpmInstallTask
-import com.moowork.gradle.node.npm.NpmSetupTask
 import com.moowork.gradle.node.npm.NpmTask
 import com.moowork.gradle.node.npm.NpxTask
 import com.moowork.gradle.node.variant.VariantBuilder

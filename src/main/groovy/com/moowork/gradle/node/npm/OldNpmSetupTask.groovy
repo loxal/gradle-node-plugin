@@ -14,7 +14,7 @@ import org.gradle.process.ExecResult
 /**
  * npm install that only gets executed if gradle decides so.
  **/
-class NpmSetupTask
+class OldNpmSetupTask
     extends DefaultTask
 {
     public final static String NAME = 'npmSetup'
@@ -27,7 +27,7 @@ class NpmSetupTask
 
     private ExecResult result
 
-    NpmSetupTask()
+    OldNpmSetupTask()
     {
         dependsOn( SetupTask.NAME )
 

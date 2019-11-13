@@ -1,7 +1,7 @@
 package com.moowork.gradle.node.yarn
 
 import com.moowork.gradle.node.NodePlugin
-import com.moowork.gradle.node.npm.NpmSetupTask
+import com.moowork.gradle.node.npm.OldNpmSetupTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 
@@ -9,7 +9,7 @@ import org.gradle.api.tasks.OutputDirectory
  * Setup a specific version of Yarn to be used by the build.
  **/
 class YarnSetupTask
-    extends NpmSetupTask
+    extends OldNpmSetupTask
 {
     public final static String NAME = 'yarnSetup'
 

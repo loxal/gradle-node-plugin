@@ -23,7 +23,7 @@ class NpxTask
     {
         this.group = NodePlugin.NODE_GROUP
         this.runner = new NpxExecRunner( this.project )
-        dependsOn( NpmSetupTask.NAME )
+        dependsOn( OldNpmSetupTask.NAME )
     }
 
     void setArgs( final Iterable<?> value )

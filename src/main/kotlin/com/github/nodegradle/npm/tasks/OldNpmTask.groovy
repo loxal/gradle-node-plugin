@@ -2,7 +2,7 @@ package com.github.nodegradle.npm.tasks
 
 import com.moowork.gradle.node.NodePlugin
 import com.moowork.gradle.node.npm.NpmExecRunner
-import com.moowork.gradle.node.npm.NpmSetupTask
+import com.moowork.gradle.node.npm.OldNpmSetupTask
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.*
 import org.gradle.process.ExecResult
@@ -22,7 +22,7 @@ class OldNpmTask
     {
         this.group = NodePlugin.NODE_GROUP
         this.runner = new NpmExecRunner( this.project )
-        dependsOn( NpmSetupTask.NAME )
+        dependsOn( OldNpmSetupTask.NAME )
     }
 
     void setArgs( final Iterable<?> value )

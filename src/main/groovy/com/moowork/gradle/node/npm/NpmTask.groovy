@@ -24,7 +24,7 @@ class NpmTask
     {
         this.group = NodePlugin.NODE_GROUP
         this.runner = new NpmExecRunner( this.project )
-        dependsOn( NpmSetupTask.NAME )
+        dependsOn( OldNpmSetupTask.NAME )
     }
 
     void setArgs( final Iterable<?> value )

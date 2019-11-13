@@ -2,7 +2,7 @@ package com.github.nodegradle.npm.tasks
 
 import com.github.nodegradle.NodePlugin
 import com.github.nodegradle.npm.NpmExecRunner
-import com.moowork.gradle.node.npm.NpmSetupTask
+import com.github.nodegradle.npm.NpmSetupTask
 import org.gradle.api.Action
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.*

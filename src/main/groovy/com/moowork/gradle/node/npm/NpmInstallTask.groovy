@@ -23,7 +23,7 @@ class NpmInstallTask
     {
         this.group = NodePlugin.NODE_GROUP
         this.description = 'Install node packages from package.json.'
-        dependsOn( [NpmSetupTask.NAME] )
+        dependsOn( [OldNpmSetupTask.NAME] )
 
         this.project.afterEvaluate {
             def ext = this.project.extensions.getByType(NodeExtension)
