@@ -7,8 +7,8 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.*
 import org.gradle.process.ExecResult
 
-class NpmSetupTask: DefaultTask() {
-    lateinit var config: NodeExtension
+open class NpmSetupTask: DefaultTask() {
+    var config: NodeExtension? = null
 
     @get:Nested
     var runner: NpmExecRunner
@@ -50,12 +50,12 @@ class NpmSetupTask: DefaultTask() {
     }
 
     @TaskAction
-    fun exec()
-    {
+    fun exec() {
         val execArgs = mutableListOf<String>()
         execArgs.addAll(args)
 
         runner.arguments = execArgs
+        project.logger.warn("Adding: ${execArgs.toString()}")
         result = runner.execute()
     }
 
@@ -64,18 +64,19 @@ class NpmSetupTask: DefaultTask() {
         configureIfNeeded()
 
         val set = HashSet<Any>()
-        set.add(this.config.download)
-        set.add(this.config.npmVersion)
-        set.add(this.config.npmWorkDir)
+        set.add(this.config!!.download)
+        set.add(this.config!!.npmVersion)
+        set.add(this.config!!.npmWorkDir)
         return set
     }
 
-    fun configureVersion(npmVersion: String) {
-        if (npmVersion.isNotEmpty()) {
-            logger.debug( "Setting npmVersion to ${npmVersion}" )
+    fun configureVersion(config: NodeExtension) {
+        if (config.npmVersion.isNotEmpty()) {
+            logger.debug( "Setting npmVersion to ${config.npmVersion}" )
+            logger.warn( "Setting npmVersion to ${config.npmVersion}" )
             args = mutableListOf("install", "--global", "--no-save")
             args.addAll(proxySettings())
-            args.addAll(listOf("--prefix", config.variant.npmDir.absolutePath, "npm@$npmVersion"))
+            args.addAll(listOf("--prefix", config.variant.npmDir.absolutePath, "npm@${config.npmVersion}"))
 
             enabled = true
         }

@@ -10,7 +10,7 @@ import org.gradle.process.ExecResult
 import org.gradle.process.ExecSpec
 import java.io.File
 
-class NpmTask: DefaultTask() {
+open class NpmTask: DefaultTask() {
     @get:Nested
     val runner: NpmExecRunner
 

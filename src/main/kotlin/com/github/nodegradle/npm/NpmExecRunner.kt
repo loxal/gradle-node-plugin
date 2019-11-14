@@ -5,10 +5,11 @@ import org.gradle.api.Project
 import org.gradle.process.ExecResult
 import java.io.File
 
-class NpmExecRunner(project: Project) : ExecRunner(project) {
+open class NpmExecRunner(project: Project) : ExecRunner(project) {
     override fun doExecute(): ExecResult {
         var exec = variant!!.npmExec
-        lateinit var arguments: MutableList<String>
+//        var arguments: MutableList<String> = mutableListOf()
+        var arguments = this.arguments
 
         if ( ext!!.download ) {
             val localNpm = project.file(File(this.ext!!.nodeModulesDir, "node_modules/npm/bin/npm-cli.js"))
@@ -23,6 +24,7 @@ class NpmExecRunner(project: Project) : ExecRunner(project) {
                 arguments.addAll(this.arguments)
             }
         }
+        project.logger.warn("Running ${exec.toString()} ${arguments.toString()}")
         return run( exec, arguments )
     }
 

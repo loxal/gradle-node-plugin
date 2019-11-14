@@ -38,10 +38,10 @@ class NpmTask
         return npmCommand
     }
 
-//    void setNpmCommand( String[] cmd )
-//    {
-//        this.npmCommand = cmd
-//    }
+    void setNpmCommand( String[] cmd )
+    {
+        this.npmCommand = cmd
+    }
 
     @Input
     @Optional

@@ -24,7 +24,7 @@ class NpmInstall_integTest
         writeEmptyPackageJson()
 
         when:
-        def result = build( 'npmInstall' )
+        def result = build( 'npmInstall', '--stacktrace' )
 
         then:
         result.task(":nodeSetup").outcome == TaskOutcome.SUCCESS
@@ -40,7 +40,7 @@ class NpmInstall_integTest
         result.task(":npmInstall").outcome == TaskOutcome.SUCCESS
 
         when:
-        result = build( 'npmInstall' )
+        result = build( 'npmInstall')
 
         then:
         result.task(":nodeSetup").outcome == TaskOutcome.UP_TO_DATE

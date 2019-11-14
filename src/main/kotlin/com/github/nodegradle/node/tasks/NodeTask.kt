@@ -11,7 +11,7 @@ import org.gradle.process.ExecResult
 import org.gradle.process.ExecSpec
 import java.io.File
 
-class NodeTask: DefaultTask() {
+open class NodeTask: DefaultTask() {
     @get:Nested
     var runner: NodeExecRunner
 

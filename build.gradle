@@ -57,6 +57,8 @@ test {
 }
 
 compileGroovy.dependsOn = compileGroovy.dependsOn - 'compileJava'
+compileTestGroovy.dependsOn = compileTestGroovy.dependsOn - 'compileJava'
+compileTestGroovy.dependsOn compileKotlin
 compileKotlin.dependsOn compileGroovy
 compileKotlin.classpath += files(compileGroovy.destinationDir)
 classes.dependsOn compileKotlin

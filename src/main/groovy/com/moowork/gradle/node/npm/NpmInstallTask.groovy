@@ -27,7 +27,7 @@ class NpmInstallTask
 
         this.project.afterEvaluate {
             def ext = this.project.extensions.getByType(NodeExtension)
-            setNpmCommand( ext.getNpmInstallCommand() )
+            setNpmCommand( ext.npmInstallCommand )
         }
     }
 

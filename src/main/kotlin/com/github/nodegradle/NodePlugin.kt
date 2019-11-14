@@ -3,9 +3,9 @@ package com.github.nodegradle
 import com.github.nodegradle.node.tasks.NodeTask
 import com.github.nodegradle.node.tasks.SetupTask
 import com.github.nodegradle.npm.NpmSetupTask
+import com.github.nodegradle.npm.tasks.NpmTask
 import com.moowork.gradle.node.NodeExtension
 import com.moowork.gradle.node.npm.NpmInstallTask
-import com.moowork.gradle.node.npm.NpmTask
 import com.moowork.gradle.node.npm.NpxTask
 import com.moowork.gradle.node.variant.VariantBuilder
 import com.moowork.gradle.node.yarn.YarnInstallTask
@@ -14,7 +14,7 @@ import com.moowork.gradle.node.yarn.YarnTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-class NodePlugin: Plugin<Project> {
+open class NodePlugin: Plugin<Project> {
     companion object {
         const val NODE_GROUP = "Node"
     }
@@ -39,7 +39,7 @@ class NodePlugin: Plugin<Project> {
         project.afterEvaluate {
             config.variant = VariantBuilder(config).build()
             setupTask.isEnabled = config.download
-            npmSetupTask.configureVersion(config.npmVersion)
+            npmSetupTask.configureVersion(config)
             yarnSetupTask.configureVersion(config.yarnVersion)
         }
     }
@@ -50,7 +50,7 @@ class NodePlugin: Plugin<Project> {
             if (taskName.startsWith( "npm_" )) {
                 val npmTask = project.tasks.create(taskName, NpmTask::class.java)
                 val tokens = taskName.split( '_' ).drop(1) // all except first
-                npmTask.npmCommand = tokens.toTypedArray()
+                npmTask.npmCommand = tokens.toTypedArray().toMutableList()
 
                 if (tokens.first().toLowerCase() == "run") {
                     npmTask.dependsOn( NpmInstallTask.NAME )
